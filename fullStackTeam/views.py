@@ -38,10 +38,13 @@ def details(request, id):
 
 def add_member(request):
     if request.method == 'POST':
+        # Get the phone number and strip any whitespace
+        phone = request.POST.get('phone').strip()
+        
         member = Member(
             first_name=request.POST.get('first_name'),
             last_name=request.POST.get('last_name'),
-            phone=request.POST.get('phone'),
+            phone=phone,  # The phone number will already be formatted
             email=request.POST.get('email'),
             role=request.POST.get('role', 'Regular')
         )
