@@ -50,10 +50,3 @@ def add_member(request):
     
     template = loader.get_template('add.html')
     return HttpResponse(template.render({}, request))
-
-def main(request):
-    template = loader.get_template('main.html')
-    context = {
-        'total_members': Member.objects.count(),
-    }
-    return HttpResponse(template.render(context, request))
