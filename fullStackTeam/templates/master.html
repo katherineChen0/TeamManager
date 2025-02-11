@@ -72,16 +72,26 @@
             float: right;
             font-size: 16px;
             margin-top: 20px;
+            transition: background-color 0.2s;
+        }
+        .save-button:hover {
+            background: #3367d6
         }
         .delete-button {
-            background: none;
+            background: rgba(255, 255, 255, 0.9);
             color: #d93025;
-            border: none;
+            border: 1px solid #d93025;
             padding: 12px 24px;
             cursor: pointer;
             float: left;
             font-size: 16px;
             margin-top: 20px;
+            border-radius: 8px;
+            transition: background-color 0.2;
+        }
+        .delete-button:hover {
+            background: rgba(255, 255, 255, 1);
+            color: #b31412;
         }
 
         /* Styles for member list page */
@@ -122,7 +132,12 @@
             font-size: 24px;
             color: #4285f4;
             padding: 4px 8px;
+            transition: color 0.2s;
         }
+        .add-button:hover {
+            color: #3367d6;
+        }
+
     </style>
 </head>
 <body>
