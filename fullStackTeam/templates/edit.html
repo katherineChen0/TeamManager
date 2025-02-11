@@ -1,49 +1,32 @@
 {% extends "master.html" %}
 
-{% block title %}
-  Edit {{ mymember.first_name }} {{ mymember.last_name }}
-{% endblock %}
+{% block title %}Edit team member{% endblock %}
 
 {% block content %}
-  <h1>Edit Member</h1>
-  
-  <form method="POST">
-    {% csrf_token %}
-    <p>
-      <label for="first_name">First Name:</label><br>
-      <input type="text" id="first_name" name="first_name" value="{{ mymember.first_name }}" required>
-    </p>
-    
-    <p>
-      <label for="last_name">Last Name:</label><br>
-      <input type="text" id="last_name" name="last_name" value="{{ mymember.last_name }}" required>
-    </p>
-    
-    <p>
-      <label for="phone">Phone:</label><br>
-      <input type="tel" id="phone" name="phone" value="{{ mymember.phone }}" required>
-    </p>
-    
-    <p>
-      <label for="email">Email:</label><br>
-      <input type="email" id="email" name="email" value="{{ mymember.email }}" required>
-    </p>
-    
-    <p>
-      <label for="role">Role:</label><br>
-      <select id="role" name="role">
-        <option value="Regular" {% if mymember.role == 'Regular' %}selected{% endif %}>Regular</option>
-        <option value="Admin" {% if mymember.role == 'Admin' %}selected{% endif %}>Admin</option>
-      </select>
-    </p>
-    
-    <button type="submit">Save</button>
-  </form>
-  
-  <form method="POST" style="margin-top: 20px;">
-    {% csrf_token %}
-    <button type="submit" name="delete" onclick="return confirm('Are you sure you want to delete this member?')">Delete</button>
-  </form>
-  
-  <p><a href="{% url 'members' %}">Cancel</a></p>
+    <h1>Edit team member</h1>
+    <div class="subtitle">Edit contact info, location and role.</div>
+
+    <form method="POST">
+        {% csrf_token %}
+        <h3>Info</h3>
+        <input type="text" name="first_name" value="{{ mymember.first_name }}" required>
+        <input type="text" name="last_name" value="{{ mymember.last_name }}" required>
+        <input type="email" name="email" value="{{ mymember.email }}" required>
+        <input type="tel" name="phone" value="{{ mymember.phone }}" required>
+
+        <h3>Role</h3>
+        <div class="role-selector">
+            <label class="role-option">
+                <input type="radio" name="role" value="Regular" {% if mymember.role == 'Regular' %}checked{% endif %}>
+                Regular - Can't delete members
+            </label>
+            <label class="role-option">
+                <input type="radio" name="role" value="Admin" {% if mymember.role == 'Admin' %}checked{% endif %}>
+                Admin - Can delete members
+            </label>
+        </div>
+
+        <button type="submit" name="delete" class="delete-button">Delete</button>
+        <button type="submit" class="save-button">Save</button>
+    </form>
 {% endblock %}

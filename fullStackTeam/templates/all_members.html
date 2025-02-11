@@ -1,24 +1,29 @@
 {% extends "master.html" %}
 
-{% block title %}
-  Members
-{% endblock %}
+{% block title %}Team Members{% endblock %}
 
 {% block content %}
-  <h1>Team Members <a href="{% url 'add_member' %}" style="text-decoration: none;">+</a></h1>
+    <h1>
+        Team members
+        <a href="{% url 'add_member' %}" class="add-button">+</a>
+    </h1>
+    <div class="subtitle">You have {{ total_members }} team member{{ total_members|pluralize }}.</div>
 
-  <h3>You have {{ total_members }} team member{{ total_members|pluralize }}.</h3>
-
-  <ul>
-  {% for member in mymembers %}
-    <li>
-      <a href="{% url 'details' member.id %}">
-        {{ member.first_name }} {{ member.last_name }}
-        {% if member.role == 'Admin' %}(Admin){% endif %}
-      </a>
-    </li>
-  {% endfor %}
-  </ul>
-  
-  <p>Back to <a href="{% url 'main' %}">Main</a></p>
+    <div class="member-list">
+        {% for member in mymembers %}
+        <a href="{% url 'details' member.id %}" style="text-decoration: none; color: inherit;">
+            <div class="member-item">
+                <div class="member-avatar"></div>
+                <div class="member-info">
+                    <div class="member-name">
+                        {{ member.first_name }} {{ member.last_name }}
+                        {% if member.role == 'Admin' %}(admin){% endif %}
+                    </div>
+                    <div class="member-contact">{{ member.phone }}</div>
+                    <div class="member-contact">{{ member.email }}</div>
+                </div>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
 {% endblock %}

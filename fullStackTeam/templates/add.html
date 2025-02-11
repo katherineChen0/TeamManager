@@ -1,44 +1,31 @@
 {% extends "master.html" %}
 
-{% block title %}
-  Add New Member
-{% endblock %}
+{% block title %}Add a team member{% endblock %}
 
 {% block content %}
-  <h1>Add New Member</h1>
-  
-  <form method="POST">
-    {% csrf_token %}
-    <p>
-      <label for="first_name">First Name:</label><br>
-      <input type="text" id="first_name" name="first_name" required>
-    </p>
-    
-    <p>
-      <label for="last_name">Last Name:</label><br>
-      <input type="text" id="last_name" name="last_name" required>
-    </p>
-    
-    <p>
-      <label for="phone">Phone:</label><br>
-      <input type="tel" id="phone" name="phone" required>
-    </p>
-    
-    <p>
-      <label for="email">Email:</label><br>
-      <input type="email" id="email" name="email" required>
-    </p>
-    
-    <p>
-      <label for="role">Role:</label><br>
-      <select id="role" name="role">
-        <option value="Regular">Regular</option>
-        <option value="Admin">Admin</option>
-      </select>
-    </p>
-    
-    <button type="submit">Save</button>
-  </form>
-  
-  <p><a href="{% url 'members' %}">Cancel</a></p>
+    <h1>Add a team member</h1>
+    <div class="subtitle">Set email, location and role.</div>
+
+    <form method="POST">
+        {% csrf_token %}
+        <h3>Info</h3>
+        <input type="text" name="first_name" placeholder="First name" required>
+        <input type="text" name="last_name" placeholder="Last name" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="tel" name="phone" placeholder="Phone" required>
+
+        <h3>Role</h3>
+        <div class="role-selector">
+            <label class="role-option">
+                <input type="radio" name="role" value="Regular" checked>
+                Regular - Can't delete members
+            </label>
+            <label class="role-option">
+                <input type="radio" name="role" value="Admin">
+                Admin - Can delete members
+            </label>
+        </div>
+
+        <button type="submit" class="save-button">Save</button>
+    </form>
 {% endblock %}
