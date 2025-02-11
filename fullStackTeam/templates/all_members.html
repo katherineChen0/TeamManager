@@ -1,0 +1,24 @@
+{% extends "master.html" %}
+
+{% block title %}
+  Members
+{% endblock %}
+
+{% block content %}
+  <h1>Team Members <a href="{% url 'add_member' %}" style="text-decoration: none;">+</a></h1>
+
+  <h3>You have {{ total_members }} team member{{ total_members|pluralize }}.</h3>
+
+  <ul>
+  {% for member in mymembers %}
+    <li>
+      <a href="{% url 'details' member.id %}">
+        {{ member.first_name }} {{ member.last_name }}
+        {% if member.role == 'Admin' %}(Admin){% endif %}
+      </a>
+    </li>
+  {% endfor %}
+  </ul>
+  
+  <p>Back to <a href="{% url 'main' %}">Main</a></p>
+{% endblock %}
