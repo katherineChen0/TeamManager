@@ -32,24 +32,46 @@
         <button type="submit" class="save-button">Save</button>
     </form>
     <script>
-        function formatPhoneNumber(input) {
-            // Remove all non-digit characters
-            let value = input.value.replace(/\D/g, '');
-            
-            // Limit to 10 digits
-            value = value.substring(0, 10);
-            
-            // Format the number
-            if (value.length >= 6) {
-                value = `(${value.substring(0, 3)}) ${value.substring(3, 6)}-${value.substring(6)}`;
-            } else if (value.length >= 3) {
-                value = `(${value.substring(0, 3)}) ${value.substring(3)}`;
-            } else if (value.length > 0) {
-                value = `(${value}`;
-            }
-            
-            input.value = value;
-        }
+function formatPhoneNumber(input) {
+    let cursorPosition = input.selectionStart;
+    let oldValue = input.value;
+    let isDeleting = event.inputType === "deleteContentBackward"; // Detect if user is backspacing
+
+    // Remove all non-digit characters and extract only numbers
+    let digits = oldValue.replace(/\D/g, '');
+
+    // Limit input to 10 digits
+    digits = digits.substring(0, 10);
+
+    // Format the number correctly
+    let formattedValue = "";
+    if (digits.length > 6) {
+        formattedValue = `(${digits.substring(0, 3)}) ${digits.substring(3, 6)}-${digits.substring(6)}`;
+    } else if (digits.length > 3) {
+        formattedValue = `(${digits.substring(0, 3)}) ${digits.substring(3)}`;
+    } else if (digits.length > 0) {
+        formattedValue = `(${digits}`;
+    }
+
+    // Count non-digit characters before cursor in old & new value
+    let nonDigitBeforeCursor = (oldValue.substring(0, cursorPosition).match(/\D/g) || []).length;
+    let nonDigitAfterCursor = (formattedValue.substring(0, cursorPosition + (formattedValue.length - oldValue.length)).match(/\D/g) || []).length;
+
+    // Adjust cursor position to prevent misalignment
+    let newCursorPosition = cursorPosition + (nonDigitAfterCursor - nonDigitBeforeCursor);
+
+    // Prevent cursor from getting stuck at '-' or ')'
+    if (isDeleting && (cursorPosition === 6 || cursorPosition === 10)) {
+        newCursorPosition--;
+    }
+
+    input.value = formattedValue;
+
+    // Restore cursor position
+    setTimeout(() => {
+        input.setSelectionRange(newCursorPosition, newCursorPosition);
+    }, 0);
+}
 
         function validateForm() {
             if (event.submitter.name === 'delete') {
