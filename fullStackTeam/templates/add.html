@@ -53,16 +53,18 @@ function formatPhoneNumber(input) {
         formattedValue = `(${digits}`;
     }
 
-    // Count non-digit characters before cursor in old & new value
-    let nonDigitBeforeCursor = (oldValue.substring(0, cursorPosition).match(/\D/g) || []).length;
-    let nonDigitAfterCursor = (formattedValue.substring(0, cursorPosition + (formattedValue.length - oldValue.length)).match(/\D/g) || []).length;
+    let newCursorPosition = cursorPosition;
 
-    // Adjust cursor position to prevent misalignment
-    let newCursorPosition = cursorPosition + (nonDigitAfterCursor - nonDigitBeforeCursor);
+    if (isDeleting) {
+        // Handle cases where backspacing near a formatting character
+        if (cursorPosition === 5) newCursorPosition = 4; // Skip over `)`
+        if (cursorPosition === 10) newCursorPosition = 9; // Skip over `-`
+    } else {
+        // Count the non-digit characters before cursor in old value
+        let nonDigitBeforeCursor = (oldValue.substring(0, cursorPosition).match(/\D/g) || []).length;
+        let nonDigitAfterCursor = (formattedValue.substring(0, cursorPosition).match(/\D/g) || []).length;
 
-    // Prevent cursor from getting stuck at '-' or ')'
-    if (isDeleting && (cursorPosition === 6 || cursorPosition === 10)) {
-        newCursorPosition--;
+        newCursorPosition = cursorPosition + (nonDigitAfterCursor - nonDigitBeforeCursor);
     }
 
     input.value = formattedValue;
