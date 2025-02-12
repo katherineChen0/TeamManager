@@ -13,7 +13,7 @@
         <input type="text" name="last_name" value="{{ mymember.last_name }}" required>
         <input type="email" name="email" value="{{ mymember.email }}" required>
         <input type="tel" name="phone" id="phone" value="{{ mymember.phone }}" required 
-            pattern="\(\d{3}\)\s\d{3}-\d{4}" 
+            pattern="\d{3}-\d{3}-\d{4}" 
             oninput="formatPhoneNumber(this)">
 
         <h3>Role</h3>
@@ -40,25 +40,25 @@ function formatPhoneNumber(input) {
     // Remove all non-digit characters and extract only numbers
     let digits = oldValue.replace(/\D/g, '');
 
-    // Limit input to 10 digits
+    // Limit to 10 digits
     digits = digits.substring(0, 10);
 
     // Format the number correctly
     let formattedValue = "";
     if (digits.length > 6) {
-        formattedValue = `(${digits.substring(0, 3)}) ${digits.substring(3, 6)}-${digits.substring(6)}`;
+        formattedValue = `${digits.substring(0, 3)}-${digits.substring(3, 6)}-${digits.substring(6)}`;
     } else if (digits.length > 3) {
-        formattedValue = `(${digits.substring(0, 3)}) ${digits.substring(3)}`;
+        formattedValue = `${digits.substring(0, 3)}-${digits.substring(3)}`;
     } else if (digits.length > 0) {
-        formattedValue = `(${digits}`;
+        formattedValue = `${digits}`;
     }
 
     let newCursorPosition = cursorPosition;
 
     if (isDeleting) {
         // Handle cases where backspacing near a formatting character
-        if (cursorPosition === 5) newCursorPosition = 4; // Skip over `)`
-        if (cursorPosition === 10) newCursorPosition = 9; // Skip over `-`
+        if (cursorPosition === 4) newCursorPosition = 3; // Skip over first `-`
+        if (cursorPosition === 8) newCursorPosition = 7; // Skip over second `-`
     } else {
         // Count the non-digit characters before cursor in old value
         let nonDigitBeforeCursor = (oldValue.substring(0, cursorPosition).match(/\D/g) || []).length;
@@ -74,7 +74,6 @@ function formatPhoneNumber(input) {
         input.setSelectionRange(newCursorPosition, newCursorPosition);
     }, 0);
 }
-
         function validateForm() {
             if (event.submitter.name === 'delete') {
                 return true; // Skip validation for delete button
