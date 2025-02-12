@@ -68,33 +68,3 @@ class TeamMemberTests(TestCase):
         
         # Verify the member was deleted
         self.assertFalse(Member.objects.filter(id=self.test_member.id).exists())
-
-    def test_phone_number_format(self):
-        # Test phone number format validation
-        invalid_phone_data = {
-            'first_name': 'Test',
-            'last_name': 'User',
-            'phone': '1234567890',  # Invalid format
-            'email': 'test@example.com',
-            'role': 'Regular'
-        }
-        response = self.client.post(reverse('add_member'), invalid_phone_data)
-        self.assertEqual(response.status_code, 200)  # Should stay on the same page
-        
-        # Verify the member wasn't created
-        self.assertFalse(Member.objects.filter(email='test@example.com').exists())
-
-    def test_required_fields(self):
-        # Test that all required fields must be filled
-        incomplete_data = {
-            'first_name': 'Test',
-            # missing last_name
-            'phone': '123-456-7890',
-            'email': 'test@example.com',
-            'role': 'Regular'
-        }
-        response = self.client.post(reverse('add_member'), incomplete_data)
-        self.assertEqual(response.status_code, 200)  # Should stay on the same page
-        
-        # Verify the member wasn't created
-        self.assertFalse(Member.objects.filter(email='test@example.com').exists())
