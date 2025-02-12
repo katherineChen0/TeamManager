@@ -12,6 +12,31 @@ A simple web application for managing team members built with Django. This appli
 - Role-based member types (Admin/Regular)
 - Responsive design
 
+## Installation
+
+1. Clone the repository:
+```bash
+git clone https://github.com/katherineChen0/djangoTeamManager.git
+```
+2. Create a virtual environment and activate it:
+```bash
+python -m venv venv
+source venv/bin/activate # On Windows use: venv\Scripts\activate
+```
+3. Install required dependencies:
+```bash
+pip install django
+```
+4. Run migrations:
+```bash
+python manage.py makemigrations
+python manage.py migrate
+```
+5. Start development server:
+```bash
+python manage.py runserver
+```
+
 ## Usage
 
 ### Viewing Team Members
@@ -44,6 +69,18 @@ A simple web application for managing team members built with Django. This appli
 - Responsive CSS styling
 - Form validation for required fields
 
+## Technical Details
+
+- Built with Django web framework
+- Uses SQLite database
+- Client-side phone number formatting with JavaScript
+- Responsive CSS styling
+- Form validation for required fields
+
+## Requirements
+
+- Python 3.x
+- Django 4.x
 
 ## Testing
 
@@ -69,12 +106,7 @@ The tests cover:
    - Edit member form works properly
    - Delete functionality works as expected
 
-2. **Data Validation**
-   - Phone number format validation
-   - Required fields validation
-   - Email format validation
-
-3. **Model Testing**
+2. **Model Testing**
    - Member creation
    - Member updates
    - Member deletion
