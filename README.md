@@ -49,7 +49,7 @@ my-project/
 │   └── test_utils.py
 ├── requirements.txt
 └── setup.py
-
+```
 
 ## Technical Details
 
