@@ -36,21 +36,6 @@ A simple web application for managing team members built with Django. This appli
 4. Click "Delete" to remove the team member
 
 
-## Project Structure
-```bash
-my-project/
-├── README.md
-├── src/
-│   ├── main.py
-│   ├── utils.py
-│   └── __init__.py
-├── tests/
-│   ├── test_main.py
-│   └── test_utils.py
-├── requirements.txt
-└── setup.py
-```
-
 ## Technical Details
 
 - Built with Django web framework
