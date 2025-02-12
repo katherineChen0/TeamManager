@@ -58,3 +58,54 @@ my-project/
 - Client-side phone number formatting with JavaScript
 - Responsive CSS styling
 - Form validation for required fields
+
+
+## Testing
+
+The application includes comprehensive tests covering all major functionality. To run the tests:
+```bash
+python manage.py test
+```
+The test suite includes:
+- Member list view testing
+- Member creation testing
+- Member editing testing
+- Member deletion testing
+- Phone number format validation
+- Required fields validation
+
+### Test Coverage
+
+The tests cover:
+1. **View Testing**
+   - Member list page loads correctly
+   - Members are displayed with correct information
+   - Add member form works properly
+   - Edit member form works properly
+   - Delete functionality works as expected
+
+2. **Data Validation**
+   - Phone number format validation
+   - Required fields validation
+   - Email format validation
+
+3. **Model Testing**
+   - Member creation
+   - Member updates
+   - Member deletion
+
+### Running Specific Tests
+
+To run a specific test case:
+```bash
+python manage.py test
+fullStackTeam.tests.TeamMemberTests.test_member_list_view
+```
+To run tests with more detailed output:
+```bash
+python manage.py test -v 2
+```
+
+### Test Database
+
+Tests use a separate test database, so your development database won't be affected by running tests.
