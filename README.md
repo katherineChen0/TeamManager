@@ -77,11 +77,6 @@ python manage.py runserver
 - Responsive CSS styling
 - Form validation for required fields
 
-## Requirements
-
-- Python 3.x
-- Django 4.x
-
 ## Testing
 
 The application includes comprehensive tests covering all major functionality. To run the tests:
