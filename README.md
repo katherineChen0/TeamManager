@@ -37,15 +37,18 @@ A simple web application for managing team members built with Django. This appli
 
 
 ## Project Structure
-fullStackTeam/
-├── templates/
-│ ├── all_members.html
-│ ├── add.html
-│ ├── edit.html
-│ └── master.html
-├── models.py
-├── views.py
-└── urls.py
+```bash
+my-project/
+├── README.md
+├── src/
+│   ├── main.py
+│   ├── utils.py
+│   └── __init__.py
+├── tests/
+│   ├── test_main.py
+│   └── test_utils.py
+├── requirements.txt
+└── setup.py
 
 
 ## Technical Details
