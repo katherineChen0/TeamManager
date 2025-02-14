@@ -28,11 +28,30 @@
             </label>
         </div>
 
-        <button type="submit" name="delete" class="delete-button">Delete</button>
+        <button type="button" onclick="handleDelete()" class="delete-button">Delete</button>
         <button type="submit" class="save-button">Save</button>
-    </form>
+        </form>
     <script>
-function formatPhoneNumber(input) {
+        function handleDelete() {
+        if (confirm('Are you sure you want to delete this team member?')) {
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.innerHTML = `
+                {% csrf_token %}
+                <input type="hidden" name="delete" value="true">
+            `;
+            document.body.appendChild(form);
+            form.submit();
+        }
+    }
+
+    function confirmIfDelete(event) {
+        if (event.submitter && event.submitter.classList.contains('delete-button')) {
+            return confirm('Are you sure you want to delete this team member?');
+        }
+        return true;
+    }   
+    function formatPhoneNumber(input) {
     let cursorPosition = input.selectionStart;
     let oldValue = input.value;
     let isDeleting = event.inputType === "deleteContentBackward"; // Detect if user is backspacing
